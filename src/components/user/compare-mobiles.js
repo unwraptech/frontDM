@@ -4,7 +4,9 @@ import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import { Table } from "react-bootstrap"
 import { Col, Row, Input, Button, Card, Menu, Select } from "antd";
-import * as MobileActions from "../../redux/actions/mobile-actions"
+import * as MobileActions from "../../redux/actions/mobile-actions";
+import * as config from "../../config"
+
 const { Option } = Select;
 let firstselection = 0
 let secondselection = 0
@@ -175,7 +177,7 @@ class CompareMobiles extends Component {
                 <tr>{comparingdata.map(dat =>(<th style={datablackiststyle}>{dat.DeviceName}</th>))}</tr>
               </thead>
               <tbody>
-                <tr>{comparingdata.map(dat => (<th style={dataheadstyle}><img src={dat.front_image_url}
+                <tr>{comparingdata.map(dat => (<th style={dataheadstyle}><img src={config.image_URL+dat.front_image_url}
                  style={{ width: "100%", padding: "20px", background: "#FFF" }}></img></th>))}</tr>
                 <tr>{comparingdata.map(dat => (<th style={dataheadstyle}>{dat.announced? dat.announced :"-"}</th>))}</tr>
                 <tr>{comparingdata.map(dat => (<th style={dataheadstyle}>{dat.status? dat.status :"-"}</th>))}</tr>

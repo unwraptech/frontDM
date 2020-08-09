@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Popover, Button } from 'antd';
-import { Table, Row, Col } from "antd";
+import { Table, Input, Col } from "antd";
 import * as AdminActions from "../../redux/actions/admin-actions"
 import * as paginationActions from "../../redux/actions/pagination-actions";
-import { EyeTwoTone, EditTwoTone, FileImageTwoTone } from "@ant-design/icons"
+import { EyeTwoTone, EditTwoTone, FileImageTwoTone } from "@ant-design/icons";
+import * as config from "../../config"
+
 const text = <span>Title</span>;
 
 
@@ -45,52 +47,71 @@ class AdminMobile extends Component {
       console.log(mob);
     })
   }
+  onimagelinkchange= (record , e ) =>{
+    console.log(record, e.target.value );
+    let renamed = record.DeviceName.replace(' ','_').concat('_',record.id)
+    const params = {
+      id : record.id ,
+      url : e.target.value,
+      name : renamed
+    }
+    console.log(renamed);
+    this.props.save_images(params).then(res=>{
+      console.log(res);
+      if (res.message === "user list"){
+        this.handleTableChange({ current: 1, pageSize: 10 }, {}, {}, true);
 
+      }
+    })
+  }
   getHeaderKeys = () => {
     let keys = [
-      {
-        title: "Image",
-        dataIndex: "front_image_url",
-        render: (text, record) => (
-          <div>
-        <EyeTwoTone/>&nbsp;&nbsp;<EditTwoTone />
-            <img src={record.front_image_url}></img>
-
-          </div>
-        )
-      },
       {
         title: 'DeviceName',
         dataIndex: 'DeviceName',
         key: 'DeviceName',
-        width: "22%",
+        width: "20%",
         render: (text, record) => (
-          <div><img src={record.front_image_url}></img> <span>{record.DeviceName}</span> </div>
+          <div>
+            {/* <img style={{height:"100px"}} src={config.image_URL+record.front_image_url}></img><br/> */}
+           <span>{record.DeviceName}</span> </div>
         )
-      },
-      {
-        title: 'Brand',
-        dataIndex: 'Brand',
-        key: 'Brand',
-        width: "12%"
       },
       {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
-        width: "22%"
+        width: "20%"
       },
       {
         title: 'Price',
         dataIndex: 'price',
         key: 'price',
-        width: "22%"
+        width: "20%",
+        render: (text, record) => (
+          <div>
+            {record.price ? record.price : <Input placeholder="Enter price" />}
+          </div>
+        )
       },
-
+      {
+        title: 'Image',
+        dataIndex: 'details',
+        width: "20%",
+        render: (text, record) => (
+          <div>
+            {record.front_image_url ? 
+              "Updated" 
+          :  
+          <Input placeholder="Enter image URL" onChange={(e)=>this.onimagelinkchange(record,e )} />
+          
+          }
+          </div>
+              )      },
       {
         title: 'Details',
         dataIndex: 'details',
-        width: "12%",
+        width: "20%",
         render: (text, record) => (
           <a style={{ color: "#000555" }} onClick={() => this.viewDeviceDetails(record.id)}>View</a>
         )

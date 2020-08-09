@@ -7,8 +7,12 @@ const searchmobiles = params => {
 const comparemobiledevices = params => {  
   return axios.post(config.localweb_URL+config.base_PATH+"/user/mobiles/compare-mobile", params);
 }
+const getMobileByBrand = params => {  
+  return axios.post(config.localweb_URL+config.base_PATH+"/user/mobiles/getMobileByBrand", params);
+}
 
 export default {
     searchmobiles,
-    comparemobiledevices
+    comparemobiledevices,
+    getMobileByBrand
  };

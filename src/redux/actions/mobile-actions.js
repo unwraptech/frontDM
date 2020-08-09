@@ -22,4 +22,14 @@ export function compare_mobiles(params) {
     }
   };
 }
+export function getMobileByBrand(params) {
+  return async function (dispatch, getState) {
+    try {
 
+      let resp = await API.getMobileByBrand(params);
+      return resp.data;
+    } catch (e) {
+      return { "error": true };
+    }
+  };
+}

@@ -50,3 +50,28 @@ export function _logout_login(status) {
       dispatch({ type: Types.DEFAULT_STATUS,payload: status});
   };
 }
+
+export function save_images(params) {
+  return async function (dispatch, getState) {
+    try {
+
+      let resp = await API.saveimages(params);
+      return resp.data;
+    } catch (e) {
+      return { "error": true };
+    }
+  };
+}
+export function getMobilesCount(params) {
+  return async function (dispatch, getState) {
+    try {
+
+      let resp = await API.getMobilesCount(params);
+      return resp.data;
+    } catch (e) {
+      return { "error": true };
+    }
+  };
+}
+
+

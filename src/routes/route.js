@@ -20,6 +20,7 @@ import faq from "../components/user/faq";
 import latestDevices from "../components/user/latest-devices";
 import advanceSearch from "../components/user/advance-search";
 import adminDashboard from "../components/admin/admin-dashboard";
+import devicesbybrand from "../components/user/devicesbybrand";
 
 export default {
   
@@ -41,7 +42,7 @@ export default {
       {path :"/technews", component :techNews , exact: true},
       {path :"/search", component :advanceSearch , exact: true},
       {path :"/faq", component :faq , exact: true},
-
+      {path: "/smartphones/brand/:brand", component :devicesbybrand, exact: true},
 
       // admin
       {path :"/admin/add-devices",exact: true , component :addDevice},
